@@ -50,7 +50,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.post('/stt')
 async def transcript(file: UploadFile = File(...)):
     if file.content_type.startswith("audio") is False:
-        return PlainTextResponse("올바르지 않은 파일 형식입니다.", status_code=400)
+        return PlainTextResponse("not allowed file type.", status_code=400)
 
     file_name = None
 
@@ -128,11 +128,11 @@ async def transcript_base64(request: Request):
         logger.error(f"서버 처리 중 예기치 않은 오류 발생: {e}", exc_info=True)  # exc_info=True로 스택 트레이스 포함
         raise HTTPException(status_code=500, detail="서버 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.") # 클라이언트에게 오류 메시지 전달
 
-
+"""
 @app.get("/")
 async def read_index():
     return FileResponse("static/index.html")
-
+"""
 
 if __name__ == "__main__":
     os.makedirs(temp_dir, exist_ok=True)
